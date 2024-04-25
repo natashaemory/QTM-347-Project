@@ -118,6 +118,8 @@ def calculate_like(importance_same_race, d_age, samerace, attractive_partner, si
                     else:
                         return 9.61
 
+remaining_points = 100
+
 def main():
     st.title("Partner Liking Calculator")
 
@@ -137,9 +139,6 @@ def main():
     guess_prob_liked = st.slider("On a scale of 1-10, how much do you think your partner likes you?", 1, 10)
 
     st.write("You have 100 points. Allocate them among the following 6 characteristics based on how important they are to you in a partner:")
-
-
-    remaining_points = 100
 
     # Initialize variables to store slider values
     attractive_important = 0
