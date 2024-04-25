@@ -1,7 +1,7 @@
 import streamlit as st
 
 def calculate_like(importance_same_race, d_age, samerace, attractive_partner, sincere_partner, intelligence_partner,
-                   funny_partner, ambition_partner, shared_interests_partner, allocated_points, guess_prob_liked, intelligence_important, funny_important, sincere_important):
+                   funny_partner, ambition_partner, shared_interests_partner, guess_prob_liked, intelligence_important, funny_important, sincere_important):
     if funny_partner <= 4.50:
         if funny_partner <= 1.50:
             return 2.05
@@ -138,21 +138,44 @@ def main():
 
     st.write("You have 100 points. Allocate them among the following 6 characteristics based on how important they are to you in a partner:")
 
-    allocated_points = {}
+
     remaining_points = 100
-    characteristics = ['Attractiveness', 'Sincerity', 'Intelligence', 'Funniness', 'Ambition', 'Shared Interests']
-    for characteristic in characteristics:
-        points = st.slider(f"Allocate points for {characteristic}:", 0, remaining_points)
-        allocated_points[characteristic] = points
-        remaining_points -= points
+
+
+    attractive_important = st.slider("Allocate points for attractiveness:", 0, 100)
+    remaining_points -= attractive_important
+    st.write(f"You have {remaining_points} points remaining.")
+
+    sincere_important = st.slider("Allocate points for sincerity:", 0, remaining_points)
+    remaining_points -= sincere_important
+    st.write(f"You have {remaining_points} points remaining.")
+
+    intelligence_important = st.slider("Allocate points for intelligence:", 0, remaining_points)
+    remaining_points -= intelligence_important
+    st.write(f"You have {remaining_points} points remaining.")
+
+    funny_important = st.slider("Allocate points for humor:", 0, remaining_points)
+    remaining_points -= funny_important
+    st.write(f"You have {remaining_points} points remaining.")
+
+    ambition_important = st.slider("Allocate points for ambition:", 0, remaining_points)
+    remaining_points -= ambition_important
+    st.write(f"You have {remaining_points} points remaining.")
+
+    shared_interests_important = st.slider("Allocate points for shared interests:", 0, remaining_points)
+    remaining_points -= shared_interests_important
+    st.write(f"You have {remaining_points} points remaining.")
 
 
     if st.button("Calculate"):
-        inputs = (importance_same_race, d_age, 1 if samerace == 'Yes' else 0, attractive_partner, sincere_partner,
-                  intelligence_partner, funny_partner, ambition_partner, shared_interests_partner,
-                  allocated_points, guess_prob_liked)
-        like_value = calculate_like(*inputs)
-        st.write(f"Based on your inputs, your liking score for your partner is: {like_value}")
+        if remaining_points != 0:
+            st.error("Please allocate all 100 points.")
+        else:
+            inputs = (importance_same_race, d_age, 1 if samerace == 'Yes' else 0, attractive_partner, sincere_partner,
+                      intelligence_partner, funny_partner, ambition_partner, shared_interests_partner,
+                      guess_prob_liked, intelligence_important, funny_important, sincere_important)
+            like_value = calculate_like(*inputs)
+            st.write(f"Based on your inputs, your liking score for your partner is: {like_value}")
 
 if __name__ == "__main__":
     main()
