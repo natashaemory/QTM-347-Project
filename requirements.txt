@@ -1,0 +1,7 @@
+scikit-learn==0.24.2
+matplotlib==3.5.2
+ISLP==0.3.22
+pandas==1.4.4
+altair==4.1.0
+plotly==5.3.1
+numpy==1.26.4
