@@ -123,10 +123,10 @@ def main():
 
     st.write("Please answer the following questions:")
 
-    importance_same_race = st.slider("How important is it to you that your partner is of the same race? (1-10)", 1, 10)
     d_age = st.number_input("What is the age difference between you and your partner?", min_value=0.0, step=0.1)
 
     samerace = st.radio("Are you and your partner of the same race?", ('Yes', 'No'))
+    importance_same_race = st.slider("How important is it to you that your partner is of the same race? (1-10)", 1, 10)
 
     attractive_partner = st.slider("On a scale of 1-10, how attractive do you find your partner?", 1, 10)
     sincere_partner = st.slider("On a scale of 1-10, how sincere do you find your partner?", 1, 10)
@@ -141,41 +141,47 @@ def main():
 
     remaining_points = 100
 
+    # Initialize variables to store slider values
+    attractive_important = 0
+    sincere_important = 0
+    intelligence_important = 0
+    funny_important = 0
+    ambition_important = 0
+    shared_interests_important = 0
 
-    attractive_important = st.slider("Allocate points for attractiveness:", 0, 100)
-    remaining_points -= attractive_important
-    st.write(f"You have {remaining_points} points remaining.")
+# Function to update remaining points and display message
+    def update_points_and_display(value):
+        global remaining_points
+        remaining_points -= value
+        st.write(f"You have {remaining_points} points remaining.")
 
-    sincere_important = st.slider("Allocate points for sincerity:", 0, remaining_points)
-    remaining_points -= sincere_important
-    st.write(f"You have {remaining_points} points remaining.")
+    # Sliders with specified values and update functions
+    attractive_important = st.slider("Allocate points for attractiveness:", 0, remaining_points, attractive_important, key='attractive')
+    update_points_and_display(attractive_important)
 
-    intelligence_important = st.slider("Allocate points for intelligence:", 0, remaining_points)
-    remaining_points -= intelligence_important
-    st.write(f"You have {remaining_points} points remaining.")
+    sincere_important = st.slider("Allocate points for sincerity:", 0, remaining_points, sincere_important, key='sincere')
+    update_points_and_display(sincere_important)
 
-    funny_important = st.slider("Allocate points for humor:", 0, remaining_points)
-    remaining_points -= funny_important
-    st.write(f"You have {remaining_points} points remaining.")
+    intelligence_important = st.slider("Allocate points for intelligence:", 0, remaining_points, intelligence_important, key='intelligence')
+    update_points_and_display(intelligence_important)
 
-    ambition_important = st.slider("Allocate points for ambition:", 0, remaining_points)
-    remaining_points -= ambition_important
-    st.write(f"You have {remaining_points} points remaining.")
+    funny_important = st.slider("Allocate points for humor:", 0, remaining_points, funny_important, key='funny')
+    update_points_and_display(funny_important)
 
-    shared_interests_important = st.slider("Allocate points for shared interests:", 0, remaining_points)
-    remaining_points -= shared_interests_important
-    st.write(f"You have {remaining_points} points remaining.")
+    ambition_important = st.slider("Allocate points for ambition:", 0, remaining_points, ambition_important, key='ambition')
+    update_points_and_display(ambition_important)
 
+    shared_interests_important = st.slider("Allocate points for shared interests:", 0, remaining_points, shared_interests_important, key='shared_interests')
+    update_points_and_display(shared_interests_important)
 
     if st.button("Calculate"):
         if remaining_points != 0:
-            st.error("Please allocate all 100 points.")
-        else:
-            inputs = (importance_same_race, d_age, 1 if samerace == 'Yes' else 0, attractive_partner, sincere_partner,
+            st.warning("You have not allocated all 100 points. The calculation will proceed, but consider allocating all points.")
+        inputs = (importance_same_race, d_age, 1 if samerace == 'Yes' else 0, attractive_partner, sincere_partner,
                       intelligence_partner, funny_partner, ambition_partner, shared_interests_partner,
                       guess_prob_liked, intelligence_important, funny_important, sincere_important)
-            like_value = calculate_like(*inputs)
-            st.write(f"Based on your inputs, your liking score for your partner is: {like_value}")
+        like_value = calculate_like(*inputs)
+        st.write(f"Based on your inputs, your liking score for your partner is: {like_value}")
 
 if __name__ == "__main__":
     main()
