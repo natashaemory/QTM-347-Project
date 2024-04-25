@@ -118,7 +118,7 @@ def calculate_like(importance_same_race, d_age, samerace, attractive_partner, si
                     else:
                         return 9.61
 
-remaining_points = 100
+
 
 def main():
     st.title("Partner Liking Calculator")
@@ -140,39 +140,31 @@ def main():
 
     st.write("You have 100 points. Allocate them among the following 6 characteristics based on how important they are to you in a partner:")
 
-    # Initialize variables to store slider values
-    attractive_important = 0
-    sincere_important = 0
-    intelligence_important = 0
-    funny_important = 0
-    ambition_important = 0
-    shared_interests_important = 0
+    remaining_points = 100
 
-# Function to update remaining points and display message
     def update_points_and_display(value):
-        global remaining_points
+        nonlocal remaining_points
         remaining_points -= value
         st.write(f"You have {remaining_points} points remaining.")
 
     # Sliders with specified values and update functions
-    attractive_important = st.slider("Allocate points for attractiveness:", 0, remaining_points, attractive_important, key='attractive')
+    attractive_important = st.slider("Allocate points for attractiveness:", 0, 100, key='attractive')
     update_points_and_display(attractive_important)
 
-    sincere_important = st.slider("Allocate points for sincerity:", 0, remaining_points, sincere_important, key='sincere')
+    sincere_important = st.slider("Allocate points for sincerity:", 0, 100, key='sincere')
     update_points_and_display(sincere_important)
 
-    intelligence_important = st.slider("Allocate points for intelligence:", 0, remaining_points, intelligence_important, key='intelligence')
+    intelligence_important = st.slider("Allocate points for intelligence:", 0, 100, key='intelligence')
     update_points_and_display(intelligence_important)
 
-    funny_important = st.slider("Allocate points for humor:", 0, remaining_points, funny_important, key='funny')
+    funny_important = st.slider("Allocate points for humor:", 0, 100, key='funny')
     update_points_and_display(funny_important)
 
-    ambition_important = st.slider("Allocate points for ambition:", 0, remaining_points, ambition_important, key='ambition')
+    ambition_important = st.slider("Allocate points for ambition:", 0, 100, key='ambition')
     update_points_and_display(ambition_important)
 
-    shared_interests_important = st.slider("Allocate points for shared interests:", 0, remaining_points, shared_interests_important, key='shared_interests')
+    shared_interests_important = st.slider("Allocate points for shared interests:", 0, 100, key='shared_interests')
     update_points_and_display(shared_interests_important)
-
     if st.button("Calculate"):
         if remaining_points != 0:
             st.warning("You have not allocated all 100 points. The calculation will proceed, but consider allocating all points.")
