@@ -134,6 +134,9 @@ def main():
     funny_partner = st.slider("On a scale of 1-10, how funny do you find your partner?", 1, 10)
     ambition_partner = st.slider("On a scale of 1-10, how ambitious do you find your partner?", 1, 10)
     shared_interests_partner = st.slider("On a scale of 1-10, how many shared interests do you have with your partner?", 1, 10)
+    guess_prob_liked = st.slider("On a scale of 1-10, how much do you think your partner likes you?", 1, 10)
+
+    st.write("You have 100 points. Allocate them among the following 6 characteristics based on how important they are to you in a partner:")
 
     allocated_points = {}
     remaining_points = 100
@@ -143,7 +146,6 @@ def main():
         allocated_points[characteristic] = points
         remaining_points -= points
 
-    guess_prob_liked = st.slider("On a scale of 1-10, how much do you think your partner likes you?", 1, 10)
 
     if st.button("Calculate"):
         inputs = (importance_same_race, d_age, 1 if samerace == 'Yes' else 0, attractive_partner, sincere_partner,
