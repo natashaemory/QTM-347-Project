@@ -1,7 +1,7 @@
 import streamlit as st
 
 def calculate_like(importance_same_race, d_age, samerace, attractive_partner, sincere_partner, intelligence_partner,
-                   funny_partner, ambition_partner, shared_interests_partner, allocated_points, guess_prob_liked):
+                   funny_partner, ambition_partner, shared_interests_partner, allocated_points, guess_prob_liked, intelligence_important, funny_important, sincere_important):
     if funny_partner <= 4.50:
         if funny_partner <= 1.50:
             return 2.05
